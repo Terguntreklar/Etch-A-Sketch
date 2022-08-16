@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+</head>
+<body style="margin: 0;">
+    <div class="Container">
+    </div>
+    <script>
+        let N = Math.min(prompt("Side-length of canvas? (capped at 100)",16),100)
+        let style = document.createElement('style')
+        style.innerHTML = `
+        .Container{
+            height: 100vh;
+            width: 100vw;
+        }
+        `
+        document.getElementsByTagName('head')[0].appendChild(style)
+
+        const container = document.querySelector('.Container')
+        for (let i = 0; i < N*N; i++) {
+            const element = document.createElement('div')
+            // element.addEventListener
+            element.style.display = "inline-block"
+            element.style.height= `${100/N}vh`
+            element.style.width= `${100/N}vw`
+            element.style.backgroundColor= `RGB(255,255,255)`
+            element.addEventListener('mouseenter',(e)=>{
+                const re= /\d+/g
+                const level = element.style.backgroundColor.match(re)[0]
+                element.style.backgroundColor = `RGB(${level-25},${level-25},${level-25})`
+            })
+            container.appendChild(element)
+        }
+    </script>
+</body>
+</html>
